@@ -14,29 +14,21 @@ import org.apache.commons.net.ftp.FTPReply;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-//使用spring自动生成单例对象，
-//@Component
 public class FtpUtil {
-    //通过properties文件自动注入
-    @Value("${ftp.host}")
     private String host;    //ftp服务器ip
-    @Value("${ftp.port}")
     private int port;        //ftp服务器端口
-    @Value("${ftp.username}")
     private String username;//用户名
-    @Value("${ftp.password}")
     private String password;//密码
-    @Value("${ftp.basePath}")
     private String basePath;//存放文件的基本路径
     //测试的时候把这个构造函数打开，设置你的初始值，然后在代码后面的main方法运行测试
-    public FtpUtil() {
+    /*public FtpUtil() {
         //System.out.println(this.toString());
         host="192.168.100.77";
         port=21;
         username="ftpuser";
         password="ftp54321";
         basePath="/home/ftpuser/www/images";
-    }
+    }*/
     /**
      * 
      * @param path        上传文件存放在服务器的路径
@@ -169,7 +161,11 @@ public class FtpUtil {
             }
         }
     }
-    
+    /**
+     * 
+     * @param filename 要删除的文件路径+文件名 如：/imgs/2015/07/13/aa.jpg
+     * @return
+     */
     public boolean deleteFile(String filename) {
     	FTPClient ftp=new FTPClient();
         try {
@@ -213,7 +209,7 @@ public class FtpUtil {
     
     /**
      * 
-     * @param ftp	
+     * @param ftp		操作的ftp
      * @param basePath	
      * @param path		以path为根，递归清除上面所有空的文件夹，直到出现不为空的文件夹停止，最多清除到basePath结束
      * @throws IOException
